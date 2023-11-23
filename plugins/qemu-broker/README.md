@@ -5,9 +5,9 @@ Since we add some custom features in QEMU, please apply the patch `patches/qemu-
 ```bash
 cd qemu
 # The patch is built on top of this HEAD
-git checkout 0cef06d18762374c94eb4d511717a4735d668a24
+git switch stable-8.1
 # Apply the patch
-git apply /path/to/patches/qemu-patch.diff
+git apply plugins/qemu-broker/patches/qemu_8.1.3_patch_mcad.diff
 ```
 After applying the patch, please build QEMU in the following way:
 ```bash
