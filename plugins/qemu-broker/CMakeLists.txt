@@ -6,15 +6,19 @@ set(LLVM_HAVE_LINK_VERSION_SCRIPT 1)
 find_package (Python3 REQUIRED
   COMPONENTS Interpreter Development)
 
-# Search for the Flatbuffers header
-find_path(_FLATBUFFERS_HEADER flatbuffers.h
-  PATH_SUFFIXES flatbuffers
-  REQUIRED)
-if (_FLATBUFFERS_HEADER STREQUAL "_FLATBUFFERS_HEADER-NOTFOUND")
-  message(FATAL_ERROR "This plugin requires Flatbuffers..."
-                      "because I'm too lazy to do serialization by myself ;-)")
-endif()
-message(STATUS "Using Flatbuffers at ${_FLATBUFFERS_HEADER}")
+set(FLATBUFFERS_INCLUDE_DIR /usr/include CACHE PATH
+      "Folder that contains flatbuffers/flatbuffers.h")
+include_directories(${FLATBUFFERS_INCLUDE_DIR})  
+
+# # Search for the Flatbuffers header
+# find_path(_FLATBUFFERS_HEADER flatbuffers.h
+#   PATH_SUFFIXES flatbuffers
+#   REQUIRED)
+# if (_FLATBUFFERS_HEADER STREQUAL "_FLATBUFFERS_HEADER-NOTFOUND")
+#   message(FATAL_ERROR "This plugin requires Flatbuffers..."
+#                       "because I'm too lazy to do serialization by myself ;-)")
+# endif()
+# message(STATUS "Using Flatbuffers at ${_FLATBUFFERS_HEADER}")
 
 # If there is Flatbuffers compiler, re-generate the header
 find_program(_FLATBUFFERS_COMPILER flatc)
