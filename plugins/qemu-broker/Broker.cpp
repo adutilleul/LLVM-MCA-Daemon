@@ -295,7 +295,8 @@ class QemuBroker : public Broker {
           uint64_t VA = TB.VAddr - CodeStartAddress;
           for (; i != S; ++i) {
             uint8_t Offset = TB.VAddrOffsets[i];
-            CurBinRegion = BinRegions->lookup(VA + uint64_t(Offset));
+            // @TODO: use elf section offset instead of 0x1000
+            CurBinRegion = BinRegions->lookup(VA + uint64_t(Offset) + 0x1000);
             if (CurBinRegion)
               break;
           }
@@ -314,7 +315,8 @@ class QemuBroker : public Broker {
         uint64_t VA = TB.VAddr - CodeStartAddress;
         for (; i != S; ++i) {
           uint8_t Offset = TB.VAddrOffsets[i];
-          if (CurBinRegion->EndAddr == VA + uint64_t(Offset))
+          // @TODO: use elf section offset instead of 0x1000
+          if ((CurBinRegion->EndAddr -1) == VA + uint64_t(Offset) + 0x1000)
             break;
         }
         if (i != S) {
