@@ -5,16 +5,15 @@ Since we add some custom features in QEMU, please apply the patch `patches/qemu-
 ```bash
 cd qemu
 # The patch is built on top of this HEAD
-git switch stable-8.1
+git checkout 8fa379170c2a12476021f5f50d6cf3f672e79e7b
 # Apply the patch
-git apply plugins/qemu-broker/patches/qemu_8.1.3_patch_mcad.diff
+git apply plugins/qemu-broker/patches/qemu_8.2.0_patch_mcad.diff
 ```
 After applying the patch, please build QEMU in the following way:
 ```bash
 mkdir -p build && cd build
 ../configure --target-list="aarch64-linux-user,arm-linux-user,x86_64-linux-user" \
              --enable-capstone \
-             --enable-debug \
              --enable-plugins
 ninja qemu-arm qemu-x86_64 qemu-aarch64
 ```
